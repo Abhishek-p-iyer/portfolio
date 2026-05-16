@@ -38,16 +38,31 @@ function App() {
       {/* 1 — Hero */}
       <HeroSection onScrollDown={() => scrollTo(contentsRef)} />
 
-      {/* 2 — Contents index */}
-      <div ref={contentsRef}>
-        <ContentsPage onSelect={handleSelectSection} />
-      </div>
+      {/* 2 — Contents + all sections (shared texture background) */}
+      <div className="relative">
+        <div
+          className="absolute inset-0 z-0 pointer-events-none"
+          style={{
+            backgroundImage: 'url(/texture-bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.05,
+            mixBlendMode: 'screen',
+          }}
+          aria-hidden="true"
+        />
 
-      {/* 3 — Individual sections */}
-      <AboutSection   sectionRef={aboutRef}   />
-      <WorkSection    sectionRef={workRef}    />
-      <SkillsSection  sectionRef={skillsRef}  />
-      <ContactSection sectionRef={contactRef} />
+        <div ref={contentsRef} className="relative z-10">
+          <ContentsPage onSelect={handleSelectSection} />
+        </div>
+
+        <div className="relative z-10">
+          <AboutSection   sectionRef={aboutRef}   />
+          <WorkSection    sectionRef={workRef}    />
+          <SkillsSection  sectionRef={skillsRef}  />
+          <ContactSection sectionRef={contactRef} />
+        </div>
+      </div>
     </div>
   )
 }

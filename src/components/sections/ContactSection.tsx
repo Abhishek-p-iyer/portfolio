@@ -8,7 +8,7 @@ export function ContactSection({ sectionRef }: ContactSectionProps) {
       id="contact"
       ref={sectionRef}
       className="relative w-full min-h-screen flex flex-col justify-center px-12 md:px-20 py-24"
-      style={{ backgroundColor: 'var(--portfolio-bg)', borderTop: '1px solid rgba(255,255,255,0.06)' }}
+      style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
     >
       <p className="font-mono-subtitle text-white/30 text-xs tracking-[0.4em] uppercase mb-4">04 — Contact</p>
       <h2

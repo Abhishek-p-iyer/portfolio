@@ -13,7 +13,13 @@ interface TimelineEntry {
 
 const TIMELINE: TimelineEntry[] = [
   {
-    period: '2024 – Present',
+    period: '2026 – Present',
+    org: 'Latentview Analytics',
+    role: 'Senior Analyst & Senior ML Engineer',
+    type: 'work',
+  },
+  {
+    period: '2024 – 2026',
     org: 'Latentview Analytics',
     role: 'Analyst & ML Engineer',
     type: 'work',
@@ -114,7 +120,7 @@ export function AboutSection({ sectionRef }: AboutSectionProps) {
       id="about"
       ref={sectionRef}
       className="relative w-full min-h-screen flex items-center"
-      style={{ backgroundColor: 'var(--portfolio-bg)', borderTop: '1px solid rgba(255,255,255,0.06)' }}
+      style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
     >
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 px-12 md:px-20 py-24">
 
