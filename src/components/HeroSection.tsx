@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { Menu, ChevronDown } from 'lucide-react'
 import { useTypewriter } from '@/hooks/useTypewriter'
 
-const TOPICS = ['Data', 'ML', 'AI']
+const TOPICS = ['Data', 'ML', 'LLMs','Agents','Evaluation','Scalability']
 const HERO_NAME = 'Abhishek Iyer'
 
-const ASCII_CHARS = ['%', '&', '!', '.', '+', ' ', ' ', ' ']
+const ASCII_CHARS = ['%', '&', '!', '.', '+', ' ', ' ', ' ','-','=']
 
 interface AsciiCharacter {
   id: number
