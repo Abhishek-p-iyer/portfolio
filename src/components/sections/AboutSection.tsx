@@ -15,13 +15,13 @@ const TIMELINE: TimelineEntry[] = [
   {
     period: '2026 – Present',
     org: 'Latentview Analytics',
-    role: 'Senior Analyst & Senior ML Engineer',
+    role: 'Senior Analyst - Data Science',
     type: 'work',
   },
   {
     period: '2024 – 2026',
     org: 'Latentview Analytics',
-    role: 'Analyst & ML Engineer',
+    role: 'Analyst & MLOPs Engineer',
     type: 'work',
   },
   {
@@ -42,6 +42,7 @@ const TIMELINE: TimelineEntry[] = [
 function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const revealDelay = (TIMELINE.length - index - 1) * 150
 
   useEffect(() => {
     const el = ref.current
@@ -57,11 +58,11 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
   return (
     <div
       ref={ref}
-      className="flex gap-6 transition-all duration-700"
+      className="flex gap-6 transition-all duration-700 ease-out"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(24px)',
-        transitionDelay: `${index * 150}ms`,
+        transitionDelay: `${revealDelay}ms`,
       }}
     >
       {/* Spine: dot + line */}
@@ -80,8 +81,15 @@ function TimelineItem({ entry, index }: { entry: TimelineEntry; index: number })
         {/* Vertical line to next */}
         {index < TIMELINE.length - 1 && (
           <div
-            className="flex-1 mt-2"
-            style={{ width: 1, backgroundColor: 'rgba(255,77,0,0.25)', minHeight: 48 }}
+            className="mt-2 flex-1 transition-transform duration-700 ease-out"
+            style={{
+              width: 1,
+              minHeight: 48,
+              backgroundColor: 'rgba(255,77,0,0.25)',
+              transform: visible ? 'scaleY(1)' : 'scaleY(0)',
+              transformOrigin: 'bottom',
+              transitionDelay: `${revealDelay}ms`,
+            }}
           />
         )}
       </div>

@@ -90,7 +90,6 @@ function ContentRow({ item, index, onSelect }: ContentRowProps) {
         <div className="flex items-center gap-4 ml-4 shrink-0">
           <span
             className="font-mono-subtitle text-white/30 text-sm hidden md:block transition-all duration-300 group-hover:text-white/70 group-hover:translate-x-1"
-            style={{ display: 'inline-block' }}
           >
             {item.description}
           </span>

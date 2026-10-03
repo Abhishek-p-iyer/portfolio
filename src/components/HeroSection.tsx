@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Menu, ChevronDown } from 'lucide-react'
 import { useTypewriter } from '@/hooks/useTypewriter'
 
@@ -16,22 +16,20 @@ interface AsciiCharacter {
   size: number
 }
 
-function useAsciiBackground(count: number): AsciiCharacter[] {
-  const [chars, setChars] = useState<AsciiCharacter[]>([])
+function createAsciiBackground(count: number): AsciiCharacter[] {
+  const random = (seed: number) => {
+    const value = Math.sin(seed * 12.9898) * 43758.5453
+    return value - Math.floor(value)
+  }
 
-  useEffect(() => {
-    const generated: AsciiCharacter[] = Array.from({ length: count }, (_, i) => ({
-      id: i,
-      char: ASCII_CHARS[Math.floor(Math.random() * ASCII_CHARS.length)],
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      opacity: 0.05 + Math.random() * 0.15,
-      size: 10 + Math.random() * 6,
-    }))
-    setChars(generated)
-  }, [count])
-
-  return chars
+  return Array.from({ length: count }, (_, id) => ({
+    id,
+    char: ASCII_CHARS[Math.floor(random(id + 1) * ASCII_CHARS.length)],
+    x: random(id + 101) * 100,
+    y: random(id + 201) * 100,
+    opacity: 0.05 + random(id + 301) * 0.15,
+    size: 10 + random(id + 401) * 6,
+  }))
 }
 
 interface HeroSectionProps {
@@ -43,7 +41,7 @@ export function HeroSection({ onScrollDown, menuItems = ['Home', 'About', 'Work'
   const typedWord = useTypewriter(TOPICS)
   const [cursorVisible, setCursorVisible] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
-  const asciiChars = useAsciiBackground(200)
+  const asciiChars = useMemo(() => createAsciiBackground(200), [])
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Blinking cursor
@@ -104,14 +102,14 @@ export function HeroSection({ onScrollDown, menuItems = ['Home', 'About', 'Work'
       </header>
 
       {/* ── Main hero content ── */}
-      <main className="relative z-10 flex-1 flex flex-col justify-center px-12 md:px-20 -mt-16">
+      <main className="relative z-10 flex-1 flex flex-col justify-center px-6 sm:px-12 md:px-20 -mt-16">
         {/* Pixel NAME heading */}
         <h1
-          className="font-pixel leading-none select-none"
+          className="font-pixel w-full max-w-full leading-[1.2] select-none break-words"
           style={{
             color: 'var(--brand-orange)',
-            fontSize: 'clamp(4rem, 10vw, 12rem)',
-            letterSpacing: '-0.02em',
+            fontSize: 'clamp(2.25rem, 7vw, 8rem)',
+            letterSpacing: '-0.03em',
             textShadow: '0 0 80px rgba(255, 77, 0, 0.3)',
           }}
         >

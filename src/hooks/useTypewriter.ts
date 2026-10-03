@@ -8,10 +8,12 @@ const PAUSE_AFTER_ERASE = 400
 export function useTypewriter(words: string[]) {
   const [displayedText, setDisplayedText] = useState('')
   const [wordIndex, setWordIndex] = useState(0)
-  const [phase, setPhase] = useState<'typing' | 'pausing' | 'erasing' | 'waiting'>('typing')
+  const [phase, setPhase] = useState<'typing' | 'pausing' | 'erasing'>('typing')
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    if (words.length === 0) return
+
     const currentWord = words[wordIndex % words.length]
 
     const clear = () => {
@@ -36,11 +38,9 @@ export function useTypewriter(words: string[]) {
       } else {
         timeoutRef.current = setTimeout(() => {
           setWordIndex((i) => (i + 1) % words.length)
-          setPhase('waiting')
+          setPhase('typing')
         }, PAUSE_AFTER_ERASE)
       }
-    } else if (phase === 'waiting') {
-      setPhase('typing')
     }
 
     return clear
